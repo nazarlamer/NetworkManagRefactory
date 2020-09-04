@@ -1,2 +1,5 @@
 SimpleProject.class
 OnlineCheckerInterface.class
+.idea/*
+*.iml
+out/production/*
