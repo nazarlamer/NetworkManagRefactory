@@ -15,6 +15,12 @@ import java.net.URL;
 
 public class AskmemNetworkManager {
     private static Context cnt;
+    private List<OnlineChecker> onlineCkeckers;
+
+    public void addOnlineChecker(OnlineChecker cheker)
+    {
+        onlineCkeckers.insert(checker);
+    }
 
     public static boolean isOnline() {
         return isOnlineClass();
@@ -22,53 +28,20 @@ public class AskmemNetworkManager {
 
     private static boolean isOnlineClass() {
         try {
-            cnt.getApplicationContext();
-            
-			ConnectivityManager cm = (ConnectivityManager) cnt.getSystemService(Context.CONNECTIVITY_SERVICE);
-            boolean cWifi = false;
-            boolean cGprs = false;
-            boolean cWifi1 = false;
-            boolean cConn = false;
-            
-			NETWWIFI = false;
-            NETWWIFIName = "";
 
-            if (cm != null && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
-                cConn = true;
-                tnetwork_c = "U";
+            boolean isOnline = false;
+            for (OnlineChecker checker in onlineCkeckers)
+            {
+                String tnetwork_c = "NG";
+                if (cheker.isOnline)
+                {
+                    isOnline = true;
+                    tnetwork_c = checker.getNetworkName();
+                    break;
+                }
             }
 
-            if (Build.VERSION.SDK_INT >= 23 && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && !cConn) {
-                cConn = true;
-                tnetwork_c = "A";
-            }
-
-            NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (wifiInfo != null && wifiInfo.isConnected()) {
-                
-                tnetwork_c = "W";
-                cWifi = true;
-
-                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                WifiInfo wifiInfoS = wifiManager.getConnectionInfo();
-                NETWWIFI = true;
-                NETWWIFIName = wifiInfoS.getMacAddress().toString() + "$$$$$" + wifiInfoS.getSSID().toString();
-            }
-
-            wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (wifiInfo != null && wifiInfo.isConnected()) {
-                tnetwork_c = "G";
-                cGprs = true;
-            }
-
-            wifiInfo = cm.getActiveNetworkInfo();
-            if (wifiInfo != null && wifiInfo.isConnected()) {
-                if (!cWifi && !cGprs)
-                    tnetwork_c = "W";
-                cWifi1 = true;
-            }
-
-            if (cWifi || cGprs || cWifi1 || cConn) {
+            if (isOnline) {
                 try {
                     tnetwork_c = tnetwork_c + "-" + getNetworkClass();
 
