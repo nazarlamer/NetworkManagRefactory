@@ -17,8 +17,6 @@ public class AskmemNetworkManager {
     private static Context cnt;
     private List<OnlineChecker> onlineCkeckers;
 
-    // Перед викликом isOnline я повинен в клієнтському коді додати чекери ??
-	// немає сенсу цього робити з клієнтського коду так як я повинен перевірити всі можливі чекери !?
 	public void addOnlineChecker(OnlineChecker cheker)
     {
         onlineCkeckers.insert(checker);
