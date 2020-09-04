@@ -1,5 +1,9 @@
-public interface OnlineChecker
+public interface OnlineCheckerInterface
 {
-	abstract bool isOnline();
+	abstract boolean isOnline();
 	abstract String getNetworkName();
+	
+    public static void PrintName() {
+        System.out.println("THIS OnlineCheckerInterface");
+    }
 }

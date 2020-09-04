@@ -17,7 +17,7 @@ public class AskmemNetworkManager {
     private static Context cnt;
     private List<OnlineChecker> onlineCkeckers;
 
-    public void addOnlineChecker(OnlineChecker cheker)
+	public void addOnlineChecker(OnlineChecker cheker)
     {
         onlineCkeckers.insert(checker);
     }
