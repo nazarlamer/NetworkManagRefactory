@@ -1,4 +1,4 @@
-import OnlineChecker;
+package com.company;
 
 public class ConnectionOnlineChecker implements OnlineChecker
 {
@@ -8,13 +8,13 @@ public class ConnectionOnlineChecker implements OnlineChecker
 	}
 
 	@Override
-	public bool isOnline()
+	public boolean isOnline()
 	{
 		if (cm != null && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
             return true;
         }
 
-        if (Build.VERSION.SDK_INT >= 23 && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && !cConn) {
+        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()) {
             return true;
         }
 
@@ -22,7 +22,7 @@ public class ConnectionOnlineChecker implements OnlineChecker
 	}
 
 	@Override
-	String getNetworkName();
+	public String getNetworkName()
 	{
 		return "U";
 	}

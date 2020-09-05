@@ -1,68 +1,45 @@
-package com.example.user.test6.classes;
+package com.company;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
+import java.util.ArrayList;
 
+public class NetworkManager {
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+    private ArrayList<OnlineChecker> onlineCheckers = new ArrayList<OnlineChecker>();
 
-public class AskmemNetworkManager {
-    private static Context cnt;
-    private List<OnlineChecker> onlineCkeckers;
-
-	public void addOnlineChecker(OnlineChecker cheker)
+	public void addOnlineChecker(OnlineChecker checker)
     {
-        onlineCkeckers.insert(checker);
+        onlineCheckers.add(checker);
     }
 
-    public static boolean isOnline() {
-        return isOnlineClass();
+    public boolean isOnline() {
+        return isOnlineImpl();
     }
 
-    private static boolean isOnlineClass() {
+    private boolean isOnlineImpl() {
         try {
-
             boolean isOnline = false;
-            for (OnlineChecker checker in onlineCkeckers)
+            String networkName = "NG";
+            for (OnlineChecker checker : onlineCheckers)
             {
-                String tnetwork_c = "NG";
-                if (cheker.isOnline)
+                if (checker.isOnline())
                 {
                     isOnline = true;
-                    tnetwork_c = checker.getNetworkName();
+                    networkName = checker.getNetworkName();
                     break;
                 }
             }
 
             if (isOnline) {
-                try {
-                    tnetwork_c = tnetwork_c + "-" + getNetworkClass();
-
-                    HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.lviv.ua")).openConnection();
-                    urlc.setRequestProperty("Connection", "close");
-                    urlc.setConnectTimeout(4000);
-                    urlc.setReadTimeout(4000);
-                    urlc.connect();
-                    if (urlc.getResponseCode() == 200) {
-                        return true;
-                    }
-                } catch (MalformedURLException e1) {
-                    return false;
-                } catch (IOException e) {
-                    return false;
-                }
+                System.out.println("Online " + networkName);
+                return true;
             }
-        }catch (IllegalArgumentException e) {
-            RecordLog("ServiceGPS.isOnline IllegalArgumentException", "Помилка "+e.toString());
+            else
+            {
+                System.out.println("Offline ");
+                return false;
+            }
         }catch (Exception e) {
-            RecordLog("AskmemNetworkManager.isOnline Exception", "Помилка "+e.toString());
+            System.out.println("NetworkManager.isOnlineImpl Exception" + e.toString());
         }
         return false;
     }

@@ -1,4 +1,4 @@
-import OnlineChecker;
+package com.company;
 
 public class WiFiOnlineChecker implements OnlineChecker
 {
@@ -8,11 +8,11 @@ public class WiFiOnlineChecker implements OnlineChecker
 	}
 
 	@Override
-	public bool isOnline()
+	public boolean isOnline()
 	{
 		NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true
+            return true;
         }
         else {
         	wifiInfo = cm.getActiveNetworkInfo();
@@ -23,9 +23,8 @@ public class WiFiOnlineChecker implements OnlineChecker
         return false;
 	}
 
-    @Override
-	String getNetworkName();
-	{
+	@Override
+	public String getNetworkName() {
 		return "W";
 	}
 
